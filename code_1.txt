@@ -1,1 +1,128 @@
-this is code 1
+#Random is for the selection of what item will be hidden, as well as where.
+import random
+
+#The first class I'm thinking will be where the item is decided upon, and probably where most gameplay pieces will be (such as a sort of select option). I'll call it Find_it
+class Find_it:
+    def __init__(self):
+        self.begin = True
+
+#Item_get is what decides the item that needs to be found
+    def item_get(self):
+        item = ["book", "teddy bear", "water bottle", "lunch box", "sweater", "phone", "camera", "pen", "keys", "purse", "wallet", "small container", "ball", "earbuds"]
+        global get
+        get = random.choice(item)
+        return
+
+#Hiding_spot is what decides where the item is hidden
+    def hiding_spot(self):
+        spot = ["shelf", "box", "bucket", "floor", "cupboard", "table", "counter"]
+        global obtain
+        obtain = random.choice(spot)
+        return
+
+#Game_start is basically a connector, that kinda sets the code in motion. It also should allow 'get' and 'obtain' to be transferred to other classes.
+    def game_start(self):
+        Lets_go = Interact(get, obtain)
+        View = Overlay(get, obtain)
+        if self.begin == True:
+            Lets_go.option_1(get, obtain)
+        return
+
+
+#The second class I think will call Interact, since it is mainly where all interactions will be at. This will give objects you select their own unique interaction, and people who can give hints.
+
+class Interact:
+    def __init__(self, get, obtain):
+        self.get = get
+        self.obtain = obtain
+    
+    #option_1 is linked with game_won. The way it should work is send signals back and forth checking if "observe" has the item that went missing. If it does, I'm debating having it send the user to an ability to restart the game.
+    def option_1(self, get, obtain):
+        finders_keepers = Find_it()
+        plate = input("Where are you looking? Type 'LIST' to view potential areas.")
+        if plate.lower() == "list":
+            observe = input("""Your options are:
+    Shelf
+    Box
+    Bucket
+    Floor
+    Cupboard
+    Table
+    Counter
+Please type the area you wish to search
+""")
+            if observe.lower == "shelf":
+                if obtain == "shelf":
+                    print("You win!")
+                else:
+                    print("You look at the shelf. You see various things that have ended up here today, but none are what you're looking for.")
+            if observe.lower == "box":
+                if obtain == "box":
+                    print("You win!")
+                else:
+                    print("Looking in the box, you see things varying from game cards to chargers. Nothing you're looking for, though.")
+            if observe.lower == "bucket":
+                if obtain == "bucket":
+                    print("You win!")
+                else:
+                    print("You've always believed the bucket held many mysteries - but said mysteries are not the answer to the riddle before you right now.")
+            if observe.lower == "floor":
+                if obtain == "floor":
+                    print("You win!")
+                else:
+                    print("Nothing seems to have fallen off the table, and the floor itself has been recently cleaned. Nice!")
+            if observe.lower == "cupboard":
+                if obtain == "cupboard":
+                    print("You win!")
+                else:
+                    print("Sometimes you wish there were actual cups in here. Then again, it might be a kitchen if it had cups and the like in the cupboard.")
+            if observe.lower == "table":
+                if obtain == "table":
+                    print("You win!")
+                else:
+                    print("The table has always been a little cluttered, but no matter how many things you've found here in the past, it doesn't seem to be here today.")
+            if observe.lower == "counter":
+                if obtain == "counter":
+                    print("You win!")
+                else:
+                    print("The bucket is up here, but nothing else, really.")
+
+#The third class will be Overlay, and will mianly subside of text pictures that can be brought up to show what/who you can interact with, and how.
+class Overlay:
+    def __init__(self, get, obtain):
+        self.get = get
+        self.obtain = obtain
+
+#I may add more classes or fuse some depending on how the game goes.
+
+Title = input(r"""___       WELCOME TO:                                     __________                                    __
+\  \  _______              ___        ____      ___   __  \   ______\                                   \ \
+/  / / ___  /           __/  /__     /    \    /  /  /_/  /  /                                          / /
+\  \ \ \  \ \   _______ \__   __\    \  \  \   \  \       \  \_____  _______  __   __  __ ___    ______ \ \
+/  / / /  / /  / _____/   /  /       /  /\  \  /  /       /  _____/ / ___  / / /  / / / |/__ \  / ___  \| /
+\  \ \ \__\ \  \ \___     \  \       \  \ \  \ \  \       \  \      \ \  \ \ \ \  \ \ \  /  \ \ \ \  \    \
+/  / /______/   \___ \    /  /       /  /  \  \/  /       /  /      / /  / / / /  / / / /   / / / /  /    /
+\  \________   _____\ \   \  \       \  \   \  \  \       \  \      \ \__\ \ \ \__\ \ \ \   \ \ \ \__\    \
+/__________/  /_______/   /__/       /__/    \____/       /__/      /______/ /______/ /_/   /_/ /______/|_/
+
+TYPE 'BEGIN' TO START
+TYPE 'INFO' FOR EXTRA INFORMATION BEFORE YOU PLAY
+""")
+
+Hide = Find_it()
+
+if Title.lower() == "begin":
+    Hide.item_get()
+    Hide.hiding_spot()
+    Hide.game_start()
+
+if Title.lower() == "info":
+    input("Welcome to Lost N' Found! In this game, you work at a lost and found booth and return items to their owners. When you find the object they're looking for, you win the game! Press ENTER to continue.")
+    print("""You have two options to work with to find the missing object: Talk and Interact.
+    Talk allows you to ask the someone what they're looking for. Sometimes it's nice to know what you're searching for before you start looking!
+    Interact is the main function you will use while playing. Interact will give you a list of places to search in - and will allow you to select them as well.""")
+    Asked = input("""Type 'BEGIN' to start!""")
+    if Asked.lower() == "begin":
+        Hide.item_get()
+        Hide.hiding_spot()
+        Hide.game_start()
