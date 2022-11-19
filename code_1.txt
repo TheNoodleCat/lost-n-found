@@ -9,14 +9,14 @@ class Find_it:
 #Item_get is what decides the item that needs to be found
     def item_get(self):
         item = ["book", "teddy bear", "water bottle", "lunch box", "sweater", "phone", "camera", "pen", "keys", "purse", "wallet", "small container", "ball", "earbuds"]
-        global get
+        global get #get is meant to be global to be passed around the different classes.
         get = random.choice(item)
         return
 
 #Hiding_spot is what decides where the item is hidden
     def hiding_spot(self):
         spot = ["shelf", "box", "bucket", "floor", "cupboard", "table", "counter"]
-        global obtain
+        global obtain #obtain is meant to be global to be passed around the different classes.
         obtain = random.choice(spot)
         return
 
@@ -25,7 +25,9 @@ class Find_it:
         Lets_go = Interact(get, obtain)
         View = Overlay(get, obtain)
         if self.begin == True:
-            Lets_go.option_1(get, obtain)
+            #Lets_go.option_1(get, obtain)
+            #Lets_go.option_2(get)
+            View.main_screen(get, obtain)
         return
 
 
@@ -37,11 +39,11 @@ class Interact:
         self.obtain = obtain
     
     #option_1 is linked with game_won. The way it should work is send signals back and forth checking if "observe" has the item that went missing. If it does, I'm debating having it send the user to an ability to restart the game.
+
     def option_1(self, get, obtain):
-        finders_keepers = Find_it()
-        plate = input("Where are you looking? Type 'LIST' to view potential areas.")
-        if plate.lower() == "list":
-            observe = input("""Your options are:
+        fancy = Overlay(get, obtain)
+        observe = input("""Where are you looking?
+Your options are:
     Shelf
     Box
     Bucket
@@ -51,47 +53,289 @@ class Interact:
     Counter
 Please type the area you wish to search
 """)
-            if observe.lower == "shelf":
-                if obtain == "shelf":
-                    print("You win!")
-                else:
-                    print("You look at the shelf. You see various things that have ended up here today, but none are what you're looking for.")
-            if observe.lower == "box":
-                if obtain == "box":
-                    print("You win!")
-                else:
-                    print("Looking in the box, you see things varying from game cards to chargers. Nothing you're looking for, though.")
-            if observe.lower == "bucket":
-                if obtain == "bucket":
-                    print("You win!")
-                else:
-                    print("You've always believed the bucket held many mysteries - but said mysteries are not the answer to the riddle before you right now.")
-            if observe.lower == "floor":
-                if obtain == "floor":
-                    print("You win!")
-                else:
-                    print("Nothing seems to have fallen off the table, and the floor itself has been recently cleaned. Nice!")
-            if observe.lower == "cupboard":
-                if obtain == "cupboard":
-                    print("You win!")
-                else:
-                    print("Sometimes you wish there were actual cups in here. Then again, it might be a kitchen if it had cups and the like in the cupboard.")
-            if observe.lower == "table":
-                if obtain == "table":
-                    print("You win!")
-                else:
-                    print("The table has always been a little cluttered, but no matter how many things you've found here in the past, it doesn't seem to be here today.")
-            if observe.lower == "counter":
-                if obtain == "counter":
-                    print("You win!")
-                else:
-                    print("The bucket is up here, but nothing else, really.")
+        if observe.lower() != "shelf" and observe.lower() != "box" and observe.lower() != "bucket" and observe.lower() != "floor" and observe.lower() != "cupboard" and observe.lower() != "table" and observe.lower() != "counter":
+            observe = input("Could you try that again?")
+        if observe.lower() == "shelf":
+            if obtain == "shelf":
+                fancy.winnings()
+            else:
+                print("""You look at the shelf. You see various things that have ended up here today, but none are what you're looking for.
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+        if observe.lower() == "box":
+            if obtain == "box":
+                fancy.winnings()
+            else:
+                print("""Looking in the box, you see things varying from game cards to chargers. Nothing you're looking for, though.
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+        if observe.lower() == "bucket":
+            if obtain == "bucket":
+                fancy.winnings()
+            else:
+                print("""You've always believed the bucket held many mysteries - but said mysteries are not the answer to the riddle before you right now.
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+        if observe.lower() == "floor":
+            if obtain == "floor":
+                fancy.winnings()
+            else:
+                print("""Nothing seems to have fallen off the table, and the floor itself has been recently cleaned. Nice!
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+        if observe.lower() == "cupboard":
+            if obtain == "cupboard":
+                fancy.winnings()
+            else:
+                print("""Sometimes you wish there were actual cups in here. Then again, it might be a kitchen if it had cups and the like in the cupboard.
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+        if observe.lower() == "table":
+            if obtain == "table":
+                fancy.winnings()
+            else:
+                print("""The table has always been a little cluttered, but no matter how many things you've found here in the past, it doesn't seem to be here today.
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+        if observe.lower() == "counter":
+            if obtain == "counter":
+                fancy.winnings()
+            else:
+                print("""The bucket is up here, but nothing else, really.
+""")
+                inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+                if inquiry.lower() == "yes":
+                    fancy.main_screen(get, obtain)
+                if inquiry.lower() == "no":
+                    fancy.main_screen_deprecated(get, obtain)
+
+#option_2 is the "Talk" function of the code. While this portion is technically completely optional, I did think that it would give a little personality and purpose to the game.
+    def option_2(self, get):
+        fancy = Overlay(get, obtain)
+        if get == "book":
+            print("I'm looking for a book. I set it down and forgot about it, and when I went back to get it, it was gone. Do you have the book I'm looking for?")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "teddy bear":
+            print("Excuse me, have you seen my teddy bear? Someone took it from me, and I'm kinda hoping it's here.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "water bottle":
+            print("I'm wondering if you got a hold on a water bottle recently? My friend dropped it and we've been looking since.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "lunch box":
+            print("I'm looking for my lunch box! It's super cool, and has a picture of space on it! Mom said that since I couldn't find it anywhere else, I might be able to find it here. Please say you can find it!")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "sweater":
+            print("Has a sweater been dropped in here recently? I... kind of lost it while I was walking and didn't realize it.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "phone":
+            print("Have any phones ended up here? I really need to head back home, and I call my dad to do it, and... I lost my phone. Could you please check?")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "camera":
+            print("I swear I just had to lose my camera right when I was going to take the perfect picture! Did it end up here?")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "pen":
+            print("You don't happen to have a pen lying around, do you? I kinda lost mine... it was really special too.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "keys":
+            print("I'm looking for my keys. Can't get home without them, you know!... Yeah... just trying to be optimistic.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "purse":
+            print("Have you seen my purse? It's not one of those big ones, but it has some of my important things in it.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "wallet":
+            print("Hi, I'm wondering if my wallet ended up here? I'm mainly checking because otherwise it was probably stolen.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "small container":
+            print("It just had to be the day I lost the desert for the birthday boy... Hey, have you seen a small container in here? You'd make a child's day in finding it.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "ball":
+            print("I lost my ball! Could you help me find it?")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+        if get == "earbuds":
+            print("I lost my earbuds... again. Did they end up here? I don't really want to get new ones.")
+            inquiry = input("""Do you want the 'map' visuals to be shown on the screen again? Yes or No
+""")
+            if inquiry.lower() == "yes":
+                fancy.main_screen(get, obtain)
+            if inquiry.lower() == "no":
+                fancy.main_screen_deprecated(get, obtain)
+
 
 #The third class will be Overlay, and will mianly subside of text pictures that can be brought up to show what/who you can interact with, and how.
 class Overlay:
     def __init__(self, get, obtain):
         self.get = get
         self.obtain = obtain
+
+#main screen is a basic map that gives visuals, and also gives the opening select between interact(option_1) and talk(option_2).
+    def main_screen(self, get, obtain):
+        Choice = Interact(get, obtain)
+        room = input(r"""                                                                             ____________________
+    |                            |                                          /___________________/|
+ |  |____________________________|                                          |  ______________  | |
+ | /                          | /|                                          |  |            |  | |
+ |/___________________________|/ |                                          |  |            |  | |
+ |  |                         |  |                                          |  |          [ |  | |
+ |  |                         |  |                                          |  |            |  | |
+ |  |_________________________|__|                                          |  |____________|  | |
+ | /                          | /|                              _______     |__________________|/
+ |/___________________________|/ |                             [_______]
+ |  |                         |  |                             |  O   ||
+ |  |                         |  |                         ____|   \__L|_________________________
+ |  |_________________________|__|                        /    |______||                        /|
+ | /                          | /|                       /                                     / |
+ |/___________________________|/ |                      /_____________________________________/ /|
+ |  |                         |  |                      |_____________________________________|/ |
+ |  |                      ___|__|_______________________|_______                             |  |
+ |  |_____________________/                                     /|_________________________   |  |
+ | /                     /                                     / /         |              |   |  |
+ |/_____________________/                                     / /|       [ | ]            |   |  |
+ |  O____________      /_____________________________________/ / |         |              |   |  |
+ O  /          / |     |_____________________________________|/| |         |              |   |  |
+   /__________/  |     | | | |                             | |_| |_________|______________|   | /
+  |   _____   |  |     | | | |                             | |_| |____________________________|/
+  |   \___/   |  |     | | |_|                             | | |_|
+  |           |  |     | |                                 | |
+  |           | /      | |                                 | |
+  |___________|/       |_|                                 |_|
+ ___________________________________________________________________________________________________
+|                                Please Type one of these keywords:                                 |
+|                      INTERACT                                     TALK                            |
+|___________________________________________________________________________________________________|
+""")
+        if room.lower() == "interact":
+            Choice.option_1(get, obtain)
+        if room.lower() == "talk":
+            Choice.option_2(get)
+
+#main_screen_deprecated is basically the same as main_screen, only the bottom portion. I made this to make it easier to scroll up to check the main one, without multiple different versions clogging each of the attempts. Hopefully should make it easier to navigate the game!
+    def main_screen_deprecated(self, get, obtain):
+        Choice = Interact(get,obtain)
+        screens = input(r""" ___________________________________________________________________________________________________
+|                                Please Type one of these keywords:                                 |
+|                      INTERACT                                     TALK                            |
+|___________________________________________________________________________________________________|
+""")
+        if screens.lower() == "interact":
+            Choice.option_1(get,obtain)
+        if screens.lower() == "talk":
+            Choice.option_2(get)
+
+    def winnings(self):
+        settling = Find_it()
+        print(r""" _______________________________________________
+/                                               \
+\    *                                      *   /
+/             *                       X         \
+\       X            YOU                        /
+/                    WIN!           *           \
+\      *                                 *      /
+/                *            X                 \
+\_______________________________________________/""")
+        dilemma = input("""Do you want to play another round? Yes or No
+""")
+        if dilemma.lower() == "yes":
+            settling.item_get()
+            settling.hiding_spot()
+            settling.game_start()
+        if dilemma.lower() == "no":
+            print("Have a nice day!")
 
 #I may add more classes or fuse some depending on how the game goes.
 
